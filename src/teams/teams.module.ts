@@ -10,24 +10,14 @@ import { TeamsRepository } from './repository/repository';
 
 @Module({
   imports: [
-    MongooseModule.forFeatureAsync([
-      {
-        name: Teams.name,
-
-        useFactory: () => {
-          const schema = TeamSchema;
-          schema.plugin(require('mongoose-paginate-v2'));
-          schema.plugin(require('mongoose-slug-generator'));
-          return schema;
-        },
-      },
-    ]),
     MongooseModule.forFeature([
       {
-        name: League.name,
-        schema: LeagueSchema,
+        name: Teams.name,
+        schema: TeamSchema,
       },
+      { name: League.name, schema: LeagueSchema },
     ]),
+
     LeagueModule,
   ],
   controllers: [TeamsController],
