@@ -13,21 +13,7 @@ export class TeamsService {
   }
 
   async findAll(): Promise<Teams[]> {
-    return await this.teamsRepository.findAll({
-      skip: 0,
-      limit: 0,
-      sortBy: '',
-      sortOrder: 0,
-    });
-  }
-
-  async findAllByLeague() {
-    return await this.teamsRepository.findAll({
-      skip: 0,
-      limit: 0,
-      sortBy: '',
-      sortOrder: 0,
-    });
+    return await this.teamsRepository.findAll();
   }
 
   async findOne(id: string): Promise<Teams> {
@@ -43,14 +29,13 @@ export class TeamsService {
     if (!team) {
       throw new HttpException('Team does not exist!', HttpStatus.NOT_FOUND);
     }
-    return this.teamsRepository.update(updateTeamDto);
+    return this.teamsRepository.update(id, updateTeamDto);
   }
 
-  async remove(id: string): Promise<boolean> {
-    const result = await this.teamsRepository.delete(id);
-    if (!result) {
-      throw new HttpException('Team does not exist!', HttpStatus.NOT_FOUND);
+  async remove(id: string): Promise<any> {
+    const result = await this.teamsRepository.findOne(id);
+    if (result.length === 0) {
     }
-    return result;
+    return false;
   }
 }

@@ -10,8 +10,9 @@ import { UpdateTeamDto } from '../dto/update-team.dto';
 
 @Injectable()
 export class TeamsRepository {
+  [x: string]: any;
   constructor(
-    @InjectModel(Teams.name) private teamsModel: Model<TeamsDocument>,
+    @InjectModel(Teams.name) private teamsModel: Model<TeamsDocument>
   ) {}
 
   async create(teamCreateDTO: CreateTeamDto): Promise<Teams> {
@@ -19,50 +20,34 @@ export class TeamsRepository {
     return await newTeam.save();
   }
 
-  async findAll(paginateDTO: PaginateDto): Promise<any> {
-    const count: number = await this.teamsModel.countDocuments().exec();
-    const docs: Teams[] = await this.teamsModel
-      .find()
-      .skip(paginateDTO.skip)
-      .limit(paginateDTO.limit)
-      .sort({ [paginateDTO.sortBy]: paginateDTO.sortOrder })
-      .exec();
-    return { count, docs };
-      
+  async findAll(): Promise<Teams[]> {
+   
+   return await this.teamsModel.find({})   
   }
 
 
   async findOne(id: string): Promise<Teams> {
-      return await this.teamsModel.findOne({_id: id })
+      return await this.teamsModel.findOne({_id: id }).populate('league').exec()
   }
   
-  async findAllByLeague(league: any, paginateDTO: PaginateDto): Promise<any> {
-    const count: number = await this.teamsModel
-      .countDocuments({ league })
-      .exec();
-    const docs: Teams[] = await this.teamsModel
-      .find({ league })
-      .skip(paginateDTO.skip)
-      .limit(paginateDTO.limit)
-      .sort({ [paginateDTO.sortBy]: paginateDTO.sortOrder })
-      .exec();
-    return { count, docs };
-
-}
-  async update(teamupdateDTO:UpdateTeamDto): Promise<Teams> {
+ 
+  async update(id: string, teamupdateDTO:UpdateTeamDto): Promise<Teams> {
     return await this.teamsModel
-      .findOneAndUpdate({_id: teamupdateDTO.team}, { ...teamupdateDTO },
+      .findOneAndUpdate({_id: id}, { ...teamupdateDTO },
      { new: true })
       .exec();
     
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string) {
     const objId = await this.teamsModel.findOne({id});
 
-  const result = await this.teamsModel.deleteOne({_id: objId}).exec();
-  console.log(result)
-  return (result.deletedCount > 0, true)
+  return await this.teamsModel.deleteOne({_id: objId});
+  // return (result.filter(res => res.ok === 1).length > 0);
+  
 }
+
+    
+
 
 }

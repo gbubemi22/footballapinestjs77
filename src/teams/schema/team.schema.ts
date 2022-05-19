@@ -7,6 +7,7 @@ export type TeamsDocument = Teams & Document;
 
 @Schema({ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 export class Teams {
+  [x: string]: any;
   @Prop({
     required: [true, 'please provide a name'],
     unique: true,
