@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { IsString, IsEmail, IsNumberString, IsEnum, IsIn, ValidateIf } from 'class-validator';
-import { UserRole } from '../user.enum';
+import { Role } from '../user.enum';
 
 export class UserDto {
   @IsString()
@@ -13,8 +13,8 @@ export class UserDto {
   @IsString()
   password: string;
   @IsString()
-  @IsEnum(UserRole)
+  @IsEnum(Role)
   @ValidateIf((r) => typeof r.role !== 'undefined')
-  @IsIn(Object.values(UserRole))
-  role: UserRole;
+  @IsIn(Object.values(Role))
+  roles: Role[];
 }

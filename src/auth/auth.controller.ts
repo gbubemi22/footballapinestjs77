@@ -1,6 +1,8 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { CurrentUser } from 'src/users/decorator/current-user.decorator';
 import { LoginDto } from 'src/users/dto/login.dto';
 import { UserDto } from 'src/users/dto/user.dto';
+import { User } from 'src/users/schema/user.schema';
 import { UsersService } from 'src/users/users.service';
 import { LocalAuthenticationGuard } from './localAuthentication.guard';
 
@@ -24,5 +26,11 @@ export class AuthController {
     return {
       message: 'Logout successfully',
     };
+  }
+
+  @Get('currentUser')
+  @UseGuards(LocalAuthenticationGuard)
+  async currentUser(@CurrentUser() user: User) {
+    return user;
   }
 }

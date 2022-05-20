@@ -11,12 +11,15 @@ import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { Teams } from './schema/team.schema';
+import { Roles } from 'src/users/roles.decorator';
+import { Role } from 'src/users/user.enum';
 
 @Controller('teams')
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 
   @Post()
+  @Roles(Role.SUPER_ADMIN)
   create(@Body() createTeamDto: CreateTeamDto) {
     return this.teamsService.create(createTeamDto);
   }
@@ -37,6 +40,8 @@ export class TeamsController {
   }
 
   @Patch(':id')
+  @Roles(Role.SUPER_ADMIN)
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateTeamDto: UpdateTeamDto) {
     return this.teamsService.update(id, updateTeamDto);
   }

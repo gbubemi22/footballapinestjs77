@@ -15,10 +15,10 @@ export class UsersService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register(createDTO: UserDto): Promise<any> {
-    const user = new this.userModel();
-    user.password = await bcrypt.hash(createDTO.password, 10);
-    return await user.save();
+  async register(createDTO: UserDto): Promise<User> {
+    const newUser = new this.userModel(createDTO);
+    newUser.password = await bcrypt.hash(createDTO.password, 10);
+    return await newUser.save();
   }
 
   async findOne(username: string): Promise<any> {

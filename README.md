@@ -71,3 +71,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Readme
+this is a simple api  where superAdmin Admin ca add league add team to league and players to team
+with roles and permission on api 
