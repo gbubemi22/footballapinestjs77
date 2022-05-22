@@ -8,7 +8,8 @@ import { LeagueSchema } from './schema/league.schema';
   imports: [
     MongooseModule.forFeature([{ name: 'League', schema: LeagueSchema }]),
   ],
+  exports: [LeagueModule],
   controllers: [LeagueController],
-  providers: [LeagueService],
+  providers: [LeagueService, LeagueModule],
 })
 export class LeagueModule {}

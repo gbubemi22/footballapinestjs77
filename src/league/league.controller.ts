@@ -12,9 +12,9 @@ import {
 import { LeagueService } from './league.service';
 import { CreateLeagueDto } from './dto/create-league.dto';
 import { UpdateLeagueDto } from './dto/update-league.dto';
-import { PaginateDto } from 'src/common/dto/paginate-sort-dto';
-import { Roles } from 'src/users/roles.decorator';
-import { Role } from 'src/users/user.enum';
+import { PaginateDto } from '../common/dto/paginate-sort-dto';
+import { Roles } from '../users/roles.decorator';
+import { Role } from '../users/user.enum';
 
 @Controller('league')
 export class LeagueController {

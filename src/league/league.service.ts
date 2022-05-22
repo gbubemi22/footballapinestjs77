@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { PaginateDto } from 'src/common/dto/paginate-sort-dto';
+import { PaginateDto } from '../common/dto/paginate-sort-dto';
 import { CreateLeagueDto } from './dto/create-league.dto';
 import { UpdateLeagueDto } from './dto/update-league.dto';
 import { League, LeagueDocument } from './schema/league.schema';
